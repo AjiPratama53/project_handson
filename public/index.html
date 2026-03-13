@@ -4,15 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Koleksi Foto Gw</title>
+    <style>
+        .collection-item {
+            cursor: pointer;
+            margin: 10px;
+            display: inline-block;
+        }
+        .collection-item img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .detail {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>My Koleksi Foto Gw</h1>
-    <img src="/public/collection/DSC00002.JPG" alt="Simpang Siaga Boyolali">
-    <img src="/public/collection/DSC09985.JPG" alt="Selo">
-    <button id="getFortune">Get Fortune</button>
-    <div id="fortuneDisplay"></div>
+    <h1>Katalog Koleksi Seni Foto dan Video</h1>
+    <div id="catalog"></div>
+    <div id="detail" class="detail" style="display: none;"></div>
+
+    <footer>
+        <button id="getFortune">Get Fortune</button>
+        <div id="fortuneDisplay"></div>
+    </footer>
 
     <script>
+        async function loadCatalog() {
+            try {
+                const response = await fetch('/api/get-collection');
+                const collections = await response.json();
+                const catalogDiv = document.getElementById('catalog');
+                catalogDiv.innerHTML = '';
+                collections.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'collection-item';
+                    div.innerHTML = `
+                        <img src="${item.thumbnail_url}" alt="${item.title}">
+                        <p>${item.title}</p>
+                    `;
+                    div.addEventListener('click', () => loadDetail(item.id));
+                    catalogDiv.appendChild(div);
+                });
+            } catch (error) {
+                console.error('Error loading catalog:', error);
+            }
+        }
+
+        async function loadDetail(id) {
+            try {
+                const response = await fetch(`/api/get-detail?id=${id}`);
+                const data = await response.json();
+                const detailDiv = document.getElementById('detail');
+                detailDiv.innerHTML = `
+                    <h2>${data.title}</h2>
+                    <p><strong>Pencipta:</strong> ${data.creator}</p>
+                    <p><strong>Harga:</strong> ${data.price}</p>
+                    <p><strong>Tahun:</strong> ${data.year}</p>
+                `;
+                detailDiv.style.display = 'block';
+            } catch (error) {
+                console.error('Error loading detail:', error);
+            }
+        }
+
         document.getElementById('getFortune').addEventListener('click', async () => {
             try {
                 const response = await fetch('/api/fortune');
@@ -22,6 +84,9 @@
                 document.getElementById('fortuneDisplay').innerText = 'Error fetching fortune';
             }
         });
+
+        // Load catalog on page load
+        loadCatalog();
     </script>
 </body>
 </html>

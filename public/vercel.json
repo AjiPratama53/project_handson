@@ -8,6 +8,33 @@
   },
   "headers": [
     {
+      "source": "/public/collection/*.JPG",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=100, s-maxage=300, stale-while-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/public/collection/*.MP4",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/api/*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
       "source": "/public/collection/DSC00002.JPG",
       "headers": [
         {
