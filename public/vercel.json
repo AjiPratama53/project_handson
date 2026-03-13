@@ -8,7 +8,7 @@
   },
   "headers": [
     {
-      "source": "/(.*)\\.jpg",
+      "source": "/public/collection/DSC00002.JPG",
       "headers": [
         {
           "key": "Cache-Control",
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.mp4",
+      "source": "/public/collection/MAH01535.MP4",
       "headers": [
         {
           "key": "Cache-Control",
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "source": "/api/(.*)",
+      "source": "/api/fortune.js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.html",
+      "source": "index.html",
       "headers": [
         {
           "key": "Cache-Control",
@@ -43,5 +43,5 @@
         }
       ]
     }
-    ]
+  ]
 }
