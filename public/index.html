@@ -6,8 +6,20 @@
     <title>My Koleksi Foto Gw</title>
 </head>
 <body>
-    <img src="/public/collection/DSC00002.JPG" alt="Simpang Siaga Boyolali">
-    <img src="/public/collection/DSC09985.JPG" alt="Selo">
-    <video src="/public/collection/MAH01535.MP4"></video>
+    <h1>Fortune Teller</h1>
+    <button id="getFortune">Get Fortune</button>
+    <div id="fortuneDisplay"></div>
+
+    <script>
+        document.getElementById('getFortune').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/fortune');
+                const data = await response.json();
+                document.getElementById('fortuneDisplay').innerText = data.fortune;
+            } catch (error) {
+                document.getElementById('fortuneDisplay').innerText = 'Error fetching fortune';
+            }
+        });
+    </script>
 </body>
 </html>
