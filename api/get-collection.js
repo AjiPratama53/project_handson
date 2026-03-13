@@ -1,11 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { createClient as createRedisClient } from 'redis';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabaseUrl = 'https://jnbgaaksvesdoarskcrz.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpuYmdhYWtzdmVzZG9hcnNrY3J6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNzk0NjMsImV4cCI6MjA4ODk1NTQ2M30.rX4JEsrqvbJFMIheKR22GAYs671RBFrIyXlA3oCn8gk';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const redis = createRedisClient({ url: process.env.REDIS_URL });
+const redis = createRedisClient({ url: 'redis://default:fzhdAfZ8NDk239LW3gqG8W8lWw1UzpLB@redis-17413.c9.us-east-1-4.ec2.cloud.redislabs.com:17413' });
 redis.connect();
 
 export default async function handler(req, res) {
